@@ -32,6 +32,9 @@
 
                 var q1Pitch = 0;
                 var q3Pitch = 0;
+
+                // count % 4 < 2 has even halves, count / 4 and 3 * count / 4 coincide with the upper of the 2 middle indices when rounded
+                // count % 4 >= 2 has odd halves, count / 4 and 3 * count / 4 coincide with the middle indices when floored
                 var q1Index = count / 4.0;
                 var q3Index = 3 * q1Index;
                 if (count % 4 < 2) {
@@ -45,7 +48,9 @@
                     q1Pitch = baseFrequencies[q1Index];
                     q3Pitch = baseFrequencies[q3Index];
                 }
+
                 var q4Pitch = baseFrequencies[count - 1];
+                var iqrPitch = q3Pitch - q1Pitch;
                 var rangePitch = q4Pitch - q0Pitch;
 
                 console.log(`Min: ${q0Pitch}`);
@@ -53,6 +58,7 @@
                 console.log(`Q2: ${current.previewClip.medianPitch}`);
                 console.log(`Q3: ${q3Pitch}`);
                 console.log(`Max: ${q4Pitch}`);
+                console.log(`IQR: ${iqrPitch}`);
                 console.log(`Range: ${rangePitch}`);
             }
             if (current.previewClip.transcript) {
