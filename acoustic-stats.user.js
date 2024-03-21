@@ -2,19 +2,11 @@
 // @name         Acoustic Stats
 // @namespace    http://tampermonkey.net/
 // @version      2024-03-21
-// @description  Adds min, max, range and IQR stats
-// @author       You
-// @match        https://acousticgender.space/
-// @grant        none
 // @run-at       document-idle
 // ==/UserScript==
 
 (function() {
     'use strict';
-
-    console.log('Test Acoustic Stats');
-    console.log(globalState.state.clips.value.length);
-    console.log('Done');
 
     // Replaces the default renderer with additional stats
     globalState.render(['previewClip'], current => {
