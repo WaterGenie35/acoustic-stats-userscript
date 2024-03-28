@@ -157,29 +157,25 @@
                 $('#preview-median-pitch').innerHTML = Math.round(current.previewClip.medianPitch) + 'Hz';
                 $('#preview-median-resonance').innerHTML = Math.round(current.previewClip.medianResonance * 100) + '%';
 
-                var pitchQuantilesCalculated = (
-                    current.previewClip.minPitch &&
-                    current.previewClip.q1Pitch &&
-                    current.previewClip.q3Pitch &&
-                    current.previewClip.maxPitch &&
-                    current.previewClip.iqrPitch &&
-                    current.previewClip.rangePitch
-                );
-                if (!pitchQuantilesCalculated) {
+                if (!('additionalStats' in current.previewClip)) {
                     var fundamentalFrequencies = current.previewClip.phones
                         .map(phone => phone.F[0])
                         .filter(freq => freq !== null)
                         .sort((f1, f2) => (+f1) - (+f2));
                     var count = fundamentalFrequencies.length;
+
                     var { q1, _, q3 } = calculateQuantiles(fundamentalFrequencies);
                     var iqr = q3 - q1;
                     var min = fundamentalFrequencies[0];
                     var max = fundamentalFrequencies[count - 1];
                     var range = max - min;
+
                     current.previewClip.minPitch = min;
                     current.previewClip.maxPitch = max;
                     current.previewClip.iqrPitch = iqr;
                     current.previewClip.rangePitch = range;
+
+                    current.previewClip.additionalStats = true;
                 }
 
                 minPitch.innerHTML = Math.round(current.previewClip.minPitch) + 'Hz';
