@@ -63,83 +63,42 @@
         };
     }
 
+    function addChild (tag, text, parent) {
+        var cell = document.createElement(tag);
+        cell.innerHTML = text;
+        parent.appendChild(cell);
+        return cell;
+    }
+
     var pitchRow = $('#preview-mean-pitch').parentNode;
     var resonanceRow = $('#preview-mean-resonance').parentNode;
     var weightRow = document.createElement('tr');
     var tbody = pitchRow.parentNode;
     var headerRow = tbody.firstChild;
 
-    var minHeader = document.createElement('th');
-    var maxHeader = document.createElement('th');
-    var rangeHeader = document.createElement('th');
-    var iqrHeader = document.createElement('th');
+    addChild('th', 'Min.', headerRow);
+    addChild('th', 'Max.', headerRow);
+    addChild('th', 'Range', headerRow);
+    addChild('th', 'IQR', headerRow);
 
-    var minPitch = document.createElement('td');
-    var maxPitch = document.createElement('td');
-    var rangePitch = document.createElement('td');
-    var iqrPitch = document.createElement('td');
+    var minPitch = addChild('td', '-', pitchRow);
+    var maxPitch = addChild('td', '-', pitchRow);
+    var rangePitch = addChild('td', '-', pitchRow);
+    var iqrPitch = addChild('td', '-', pitchRow);
 
-    var minResonance = document.createElement('td');
-    var maxResonance = document.createElement('td');
-    var rangeResonance = document.createElement('td');
-    var iqrResonance = document.createElement('td');
+    var minResonance = addChild('td', '-', resonanceRow);
+    var maxResonance = addChild('td', '-', resonanceRow);
+    var rangeResonance = addChild('td', '-', resonanceRow);
+    var iqrResonance = addChild('td', '-', resonanceRow);
 
-    var weightHeader = document.createElement('th');
-    var meanWeight = document.createElement('td');
-    var medianWeight = document.createElement('td');
-    var stdevWeight = document.createElement('td');
-    var minWeight = document.createElement('td');
-    var maxWeight = document.createElement('td');
-    var rangeWeight = document.createElement('td');
-    var iqrWeight = document.createElement('td');
-
-    minHeader.innerHTML = 'Min.';
-    maxHeader.innerHTML = 'Max.';
-    rangeHeader.innerHTML = 'Range';
-    iqrHeader.innerHTML = 'IQR';
-
-    minPitch.innerHTML = '-';
-    maxPitch.innerHTML = '-';
-    rangePitch.innerHTML = '-';
-    iqrPitch.innerHTML = '-';
-
-    minResonance.innerHTML = '-';
-    maxResonance.innerHTML = '-';
-    rangeResonance.innerHTML = '-';
-    iqrResonance.innerHTML = '-';
-
-    weightHeader.innerHTML = 'Weight';
-    meanWeight.innerHTML = '-';
-    medianWeight.innerHTML = '-';
-    stdevWeight.innerHTML = '-';
-    minWeight.innerHTML = '-';
-    maxWeight.innerHTML = '-';
-    rangeWeight.innerHTML = '-';
-    iqrWeight.innerHTML = '-';
-
-    headerRow.appendChild(minHeader);
-    headerRow.appendChild(maxHeader);
-    headerRow.appendChild(rangeHeader);
-    headerRow.appendChild(iqrHeader);
-
-    pitchRow.appendChild(minPitch);
-    pitchRow.appendChild(maxPitch);
-    pitchRow.appendChild(rangePitch);
-    pitchRow.appendChild(iqrPitch);
-
-    resonanceRow.appendChild(minResonance);
-    resonanceRow.appendChild(maxResonance);
-    resonanceRow.appendChild(rangeResonance);
-    resonanceRow.appendChild(iqrResonance);
-
-    weightRow.appendChild(weightHeader);
-    weightRow.appendChild(meanWeight);
-    weightRow.appendChild(medianWeight);
-    weightRow.appendChild(stdevWeight);
-    weightRow.appendChild(minWeight);
-    weightRow.appendChild(maxWeight);
-    weightRow.appendChild(rangeWeight);
-    weightRow.appendChild(iqrWeight);
+    var weightHeader = addChild('th', 'Weight', weightRow);
+    var meanWeight = addChild('td', '-', weightRow);
+    var medianWeight = addChild('td', '-', weightRow);
+    var stdevWeight = addChild('td', '-', weightRow);
+    var minWeight = addChild('td', '-', weightRow);
+    var maxWeight = addChild('td', '-', weightRow);
+    var rangeWeight = addChild('td', '-', weightRow);
+    var iqrWeight = addChild('td', '-', weightRow);
 
     // TODO: Calculate weight using spectral tilt
     // tbody.appendChild(weightRow);
