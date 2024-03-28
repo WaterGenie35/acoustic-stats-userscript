@@ -10,26 +10,22 @@
 
     /**
      * @param number[] sorted data
-     * @returns object containing number|undefined for q0, q1, q2, q3, and q4
+     * @returns object containing number|undefined for q1, q2, and q3
      */
     function calculateQuantiles (data) {
         var count = data.length;
         if (count === 0) {
             return {
-                q0: undefined,
                 q1: undefined,
                 q2: undefined,
-                q3: undefined,
-                q4: undefined
+                q3: undefined
             };
         }
         if (count === 1) {
             return {
-                q0: data[0],
                 q1: data[0],
                 q2: data[0],
-                q3: data[0],
-                q4: data[0]
+                q3: data[0]
             };
         }
 
@@ -61,11 +57,9 @@
         }
 
         return {
-            q0: data[0],
             q1: q1,
             q2: q2,
             q3: q3,
-            q4: data[count - 1]
         };
     }
 
@@ -176,11 +170,14 @@
                         .map(phone => phone.F[0])
                         .filter(freq => freq !== null)
                         .sort((f1, f2) => (+f1) - (+f2));
-                    var { q0, q1, _, q3, q4 } = calculateQuantiles(fundamentalFrequencies);
+                    var count = fundamentalFrequencies.length;
+                    var { q1, _, q3 } = calculateQuantiles(fundamentalFrequencies);
                     var iqr = q3 - q1;
-                    var range = q4 - q0;
-                    current.previewClip.minPitch = q0;
-                    current.previewClip.maxPitch = q4;
+                    var min = fundamentalFrequencies[0];
+                    var max = fundamentalFrequencies[count - 1];
+                    var range = max - min;
+                    current.previewClip.minPitch = min;
+                    current.previewClip.maxPitch = max;
                     current.previewClip.iqrPitch = iqr;
                     current.previewClip.rangePitch = range;
                 }
