@@ -69,6 +69,34 @@
         };
     }
 
+    var pitchRow = $('#preview-mean-pitch').parentNode;
+    var tbody = pitchRow.parentNode;
+    var headerRow = tbody.firstChild;
+
+    var minHeader = document.createElement('th');
+    var maxHeader = document.createElement('th');
+    var rangeHeader = document.createElement('th');
+    var iqrHeader = document.createElement('th');
+    var minPitch = document.createElement('td');
+    var maxPitch = document.createElement('td');
+    var rangePitch = document.createElement('td');
+    var iqrPitch = document.createElement('td');
+
+    minHeader.innerHTML = 'Min.';
+    maxHeader.innerHTML = 'Max.';
+    rangeHeader.innerHTML = 'Range';
+    iqrHeader.innerHTML = 'IQR';
+
+    headerRow.appendChild(minHeader);
+    headerRow.appendChild(maxHeader);
+    headerRow.appendChild(rangeHeader);
+    headerRow.appendChild(iqrHeader);
+
+    pitchRow.appendChild(minPitch);
+    pitchRow.appendChild(maxPitch);
+    pitchRow.appendChild(rangePitch);
+    pitchRow.appendChild(iqrPitch);
+
     // Replaces the default renderer with additional stats
     globalState.render(['previewClip'], current => {
         if (current.previewClip) {
@@ -99,21 +127,15 @@
                     var iqr = q3 - q1;
                     var range = q4 - q0;
                     current.previewClip.minPitch = q0;
-                    current.previewClip.q1Pitch = q1;
-                    current.previewClip.q3Pitch = q3;
                     current.previewClip.maxPitch = q4;
                     current.previewClip.iqrPitch = iqr;
                     current.previewClip.rangePitch = range;
                 }
 
-                // add to DOM instead
-                console.log(`Min: ${current.previewClip.minPitch}`);
-                console.log(`Q1: ${current.previewClip.q1Pitch}`);
-                console.log(`Q2: ${current.previewClip.medianPitch}`);
-                console.log(`Q3: ${current.previewClip.q3Pitch}`);
-                console.log(`Max: ${current.previewClip.maxPitch}`);
-                console.log(`IQR: ${current.previewClip.iqrPitch}`);
-                console.log(`Range: ${current.previewClip.rangePitch}`);
+                minPitch.innerHTML = Math.round(current.previewClip.minPitch) + 'Hz';
+                maxPitch.innerHTML = Math.round(current.previewClip.maxPitch) + 'Hz';
+                rangePitch.innerHTML = Math.round(current.previewClip.rangePitch) + 'Hz';
+                iqrPitch.innerHTML = Math.round(current.previewClip.iqrPitch) + 'Hz';
             }
             if (current.previewClip.transcript) {
                 $('#preview-transcript').innerHTML = current.previewClip.transcript;
