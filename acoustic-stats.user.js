@@ -70,6 +70,7 @@
     }
 
     var pitchRow = $('#preview-mean-pitch').parentNode;
+    var resonanceRow = $('#preview-mean-resonance').parentNode;
     var tbody = pitchRow.parentNode;
     var headerRow = tbody.firstChild;
 
@@ -77,15 +78,31 @@
     var maxHeader = document.createElement('th');
     var rangeHeader = document.createElement('th');
     var iqrHeader = document.createElement('th');
+
     var minPitch = document.createElement('td');
     var maxPitch = document.createElement('td');
     var rangePitch = document.createElement('td');
     var iqrPitch = document.createElement('td');
 
+    var minResonance = document.createElement('td');
+    var maxResonance = document.createElement('td');
+    var rangeResonance = document.createElement('td');
+    var iqrResonance = document.createElement('td');
+
     minHeader.innerHTML = 'Min.';
     maxHeader.innerHTML = 'Max.';
     rangeHeader.innerHTML = 'Range';
     iqrHeader.innerHTML = 'IQR';
+
+    minPitch.innerHTML = '-';
+    maxPitch.innerHTML = '-';
+    rangePitch.innerHTML = '-';
+    iqrPitch.innerHTML = '-';
+
+    minResonance.innerHTML = '-';
+    maxResonance.innerHTML = '-';
+    rangeResonance.innerHTML = '-';
+    iqrResonance.innerHTML = '-';
 
     headerRow.appendChild(minHeader);
     headerRow.appendChild(maxHeader);
@@ -96,6 +113,11 @@
     pitchRow.appendChild(maxPitch);
     pitchRow.appendChild(rangePitch);
     pitchRow.appendChild(iqrPitch);
+
+    resonanceRow.appendChild(minResonance);
+    resonanceRow.appendChild(maxResonance);
+    resonanceRow.appendChild(rangeResonance);
+    resonanceRow.appendChild(iqrResonance);
 
     // Replaces the default renderer with additional stats
     globalState.render(['previewClip'], current => {
