@@ -71,6 +71,7 @@
 
     var pitchRow = $('#preview-mean-pitch').parentNode;
     var resonanceRow = $('#preview-mean-resonance').parentNode;
+    var weightRow = document.createElement('tr');
     var tbody = pitchRow.parentNode;
     var headerRow = tbody.firstChild;
 
@@ -89,6 +90,15 @@
     var rangeResonance = document.createElement('td');
     var iqrResonance = document.createElement('td');
 
+    var weightHeader = document.createElement('th');
+    var meanWeight = document.createElement('td');
+    var medianWeight = document.createElement('td');
+    var stdevWeight = document.createElement('td');
+    var minWeight = document.createElement('td');
+    var maxWeight = document.createElement('td');
+    var rangeWeight = document.createElement('td');
+    var iqrWeight = document.createElement('td');
+
     minHeader.innerHTML = 'Min.';
     maxHeader.innerHTML = 'Max.';
     rangeHeader.innerHTML = 'Range';
@@ -104,6 +114,15 @@
     rangeResonance.innerHTML = '-';
     iqrResonance.innerHTML = '-';
 
+    weightHeader.innerHTML = 'Weight';
+    meanWeight.innerHTML = '-';
+    medianWeight.innerHTML = '-';
+    stdevWeight.innerHTML = '-';
+    minWeight.innerHTML = '-';
+    maxWeight.innerHTML = '-';
+    rangeWeight.innerHTML = '-';
+    iqrWeight.innerHTML = '-';
+
     headerRow.appendChild(minHeader);
     headerRow.appendChild(maxHeader);
     headerRow.appendChild(rangeHeader);
@@ -118,6 +137,18 @@
     resonanceRow.appendChild(maxResonance);
     resonanceRow.appendChild(rangeResonance);
     resonanceRow.appendChild(iqrResonance);
+
+    weightRow.appendChild(weightHeader);
+    weightRow.appendChild(meanWeight);
+    weightRow.appendChild(medianWeight);
+    weightRow.appendChild(stdevWeight);
+    weightRow.appendChild(minWeight);
+    weightRow.appendChild(maxWeight);
+    weightRow.appendChild(rangeWeight);
+    weightRow.appendChild(iqrWeight);
+
+    // TODO: Calculate weight using spectral tilt
+    // tbody.appendChild(weightRow);
 
     // Replaces the default renderer with additional stats
     globalState.render(['previewClip'], current => {
